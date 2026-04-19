@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Arrow Escape: Puzzle</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="header">
+    <h1 id="mainTitle">Clear<br>the board</h1>
+  </div>
+
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="flag-chip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1e2a3a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4"/><path d="M4 4c4-2 8 2 12 0s4 0 4 0v10c-4 0-4 2-8 2s-8-2-8-2"/></svg>
+        <span id="flagCount">1</span>
+      </span>
+      <span class="level-label" id="levelLabel" onclick="openLevelSelect()" title="Select level">
+        <span id="levelText">Level</span> <span id="levelNum">1</span>
+      </span>
+    </div>
+    <div class="topbar-right">
+      <span class="hearts" id="hearts"></span>
+      <button class="mode-chip" id="langBtn" style="padding: 6px 10px;">UZ</button>
+      <button class="icon-btn" id="speedBtn" title="Speed">
+        <svg class="icon-speed-normal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <svg class="icon-speed-fast" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </button>
+      <button class="icon-btn" id="soundBtn" title="Sound">
+        <svg class="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="boardWrap">
+    <canvas id="dotsLayer"></canvas>
+    <svg id="boardSVG"></svg>
+    <div id="arrowLayer"></div>
+  </div>
+
+  <div class="bottombar">
+    <button class="round-btn" id="undoBtn" title="Undo">↶ Undo</button>
+    <button class="round-btn" id="hintBtn" title="Hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 1 7 7c0 3-2 4-3 6H8c-1-2-3-3-3-6a7 7 0 0 1 7-7z"/></svg>
+      <span class="badge" id="hintBadge">3</span>
+    </button>
+    <button class="round-btn" id="restartBtn" title="Restart">⟲ Restart</button>
+  </div>
+
+  <div class="hint-text" id="hintDesc">Drag the arrow towards its head — it will slide along its path and leave the board.</div>
+
+  <div class="combo-toast" id="comboToast"></div>
+
+  <div class="win-overlay" id="winOverlay">
+    <div class="win-card">
+      <h2 id="winTitle">🎉 Awesome!</h2>
+      <div class="win-stars" id="winStars"></div>
+      <p id="winText"></p>
+      <button id="winBtn" onclick="nextLevel()">Next Level →</button>
+    </div>
+  </div>
+
+  <div class="win-overlay" id="loseOverlay">
+    <div class="win-card">
+      <h2 id="loseTitle">💔 Game Over</h2>
+      <p id="loseText">No hearts left!</p>
+      <div class="controls" style="flex-direction: column; gap: 12px; margin-top: 10px;">
+        <button id="adBtn" onclick="watchAd()" class="primary" style="width: 100%;">📺 Watch Ad (+3 Hearts)</button>
+        <button id="restartZeroBtn" onclick="restartFromZero()" style="width: 100%;">⟲ Restart Level</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="win-overlay" id="levelOverlay">
+    <div class="win-card level-select-card">
+      <h2 id="levelSelectTitle">📋 Levels</h2>
+      <div class="level-grid" id="levelGrid"></div>
+      <button id="closeLevelBtn" onclick="closeLevelSelect()">✕ Close</button>
+    </div>
+  </div>
+
+<script src="game.js"></script>
+</body>
+</html>
